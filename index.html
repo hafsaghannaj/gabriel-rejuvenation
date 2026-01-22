@@ -16,8 +16,32 @@
           <p class="brand__role">Private Dietitian</p>
         </div>
       </div>
-      <button class="cta">Book a Session</button>
+      <button class="cta" id="headerCTA">Book a Session</button>
     </header>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="contactModalTitle">
+      <div class="modal__overlay"></div>
+      <div class="modal__content">
+        <button class="modal__close" id="closeModal">&times;</button>
+        <h2 id="contactModalTitle">Let's work together</h2>
+        <p>Share your goals and what you're willing to change. We'll respond within 48 hours.</p>
+        <form class="contact" id="contactForm">
+          <input type="text" id="nameInput" placeholder="Name" required />
+          <input type="email" id="emailInput" placeholder="Email" required />
+          <textarea id="goalsInput" placeholder="Tell us about your goals and current challenges" rows="4" required></textarea>
+          <button type="submit" class="cta">Send Inquiry</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+      <div class="success-message__content">
+        <p class="success-message__title">Message sent successfully</p>
+        <p class="success-message__text">Thank you! We'll be in touch within 48 hours.</p>
+      </div>
+    </div>
 
     <main>
       <section class="hero">
@@ -31,8 +55,8 @@
             feel minimal, sharp, and relentless on results.
           </p>
           <div class="hero__actions">
-            <button class="cta cta--light">Start Now</button>
-            <button class="ghost">View Approach</button>
+            <button class="cta cta--light" id="heroCTA">Start Now</button>
+            <button class="ghost" id="approachBtn">View Approach</button>
           </div>
           <div class="hero__stats">
             <div>
@@ -63,16 +87,19 @@
         </div>
       </section>
 
+      <div class="section-rule" aria-hidden="true"></div>
+
       <section class="tabs">
-        <div class="tabs__nav">
-          <button class="tab active" data-tab="home">Home</button>
-          <button class="tab" data-tab="services">Private Counseling</button>
-          <button class="tab" data-tab="about">About Me</button>
-          <button class="tab" data-tab="plans">E-Books</button>
-          <button class="tab" data-tab="contact">Contact</button>
+        <div class="tabs__nav" role="tablist">
+          <button class="tab active" data-tab="home" role="tab" aria-selected="true" aria-controls="home">Home</button>
+          <button class="tab" data-tab="services" role="tab" aria-selected="false" aria-controls="services">Private Counseling</button>
+          <button class="tab" data-tab="about" role="tab" aria-selected="false" aria-controls="about">About Me</button>
+          <button class="tab" data-tab="plans" role="tab" aria-selected="false" aria-controls="plans">E-Books</button>
+          <button class="tab" data-tab="contact" role="tab" aria-selected="false" aria-controls="contact">Contact</button>
+          <span class="tab-indicator" aria-hidden="true"></span>
         </div>
         <div class="tabs__content">
-          <article class="panel active" id="home">
+          <article class="panel active" id="home" role="tabpanel" aria-hidden="false">
             <h2>Minimal input. Maximum outcome.</h2>
             <p>
               Gabriel Rejuvenation delivers focused nutrition strategy for
@@ -95,7 +122,7 @@
             </div>
           </article>
 
-          <article class="panel" id="about">
+          <article class="panel" id="about" role="tabpanel" aria-hidden="true">
             <h2>About Gabriel</h2>
             <p>
               A private dietitian focused on high-performance, no-friction
@@ -120,7 +147,7 @@
             </div>
           </article>
 
-          <article class="panel" id="services">
+          <article class="panel" id="services" role="tabpanel" aria-hidden="true">
             <h2>Private Counseling</h2>
             <div class="panel__grid">
               <div class="panel__card">
@@ -138,7 +165,7 @@
             </div>
           </article>
 
-          <article class="panel" id="plans">
+          <article class="panel" id="plans" role="tabpanel" aria-hidden="true">
             <h2>E-Books</h2>
             <div class="panel__grid">
               <div class="panel__card panel__card--glow">
@@ -159,18 +186,12 @@
             </div>
           </article>
 
-          <article class="panel" id="contact">
-            <h2>Let's work together</h2>
+          <article class="panel" id="contact" role="tabpanel" aria-hidden="true">
+            <h2>Get in touch</h2>
             <p>
-              Share your goals and what you're willing to change. We'll respond
-              within 48 hours.
+              Ready to transform your nutrition? Click the button below to start the process.
             </p>
-            <form class="contact">
-              <input type="text" placeholder="Name" />
-              <input type="email" placeholder="Email" />
-              <input type="text" placeholder="Goals" />
-              <button class="cta">Send Inquiry</button>
-            </form>
+            <button class="cta" id="tabCTA" style="margin-top: 24px;">Open Contact Form</button>
           </article>
         </div>
       </section>
