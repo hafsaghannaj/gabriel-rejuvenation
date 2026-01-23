@@ -1,13 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Epilogue:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:wght@400;600;700&family=Epilogue:wght@300;400;500;600&display=swap");
 
 :root {
-  --bg: #0b0a09;
-  --surface: #11100f;
-  --text: #f3efe9;
-  --text-muted: rgba(243, 239, 233, 0.65);
-  --accent: #b8a59a;
-  --border: #26211e;
-  --shadow: rgba(0, 0, 0, 0.3);
+  --bg: #efe6e4;
+  --surface: #f6efee;
+  --text: #000000;
+  --text-muted: rgba(0, 0, 0, 0.6);
+  --accent: #7b2225;
+  --border: rgba(123, 34, 37, 0.22);
+  --shadow: rgba(0, 0, 0, 0.15);
 
   --space-1: 6px;
   --space-2: 12px;
@@ -37,7 +37,7 @@ body {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
-  font-family: "Epilogue", sans-serif;
+  font-family: "Marcellus", serif;
   padding: var(--space-4) 6vw var(--space-6);
   position: relative;
   overflow-x: hidden;
@@ -63,6 +63,7 @@ main,
   max-width: 1160px;
   margin: 0 auto;
   width: 100%;
+  padding-left: 220px;
 }
 
 .site-header {
@@ -309,13 +310,13 @@ main {
   letter-spacing: 0.28em;
   text-transform: uppercase;
   cursor: pointer;
-  color: var(--text-muted);
+  color: var(--accent);
   transition: color var(--dur-ui) var(--ease-luxe),
     letter-spacing var(--dur-ui) var(--ease-luxe);
 }
 
 .tab.active {
-  color: var(--text);
+  color: var(--accent);
   letter-spacing: 0.32em;
 }
 
@@ -329,6 +330,41 @@ main {
   transform: translateX(0);
   transition: transform var(--dur-ui) var(--ease-luxe),
     width var(--dur-ui) var(--ease-luxe);
+}
+
+.tabs__nav {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  z-index: 10;
+}
+
+.tab {
+  position: relative;
+  padding: 6px 0 6px 16px;
+}
+
+.tab.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  background: var(--accent);
+  transform: translateY(-50%);
+}
+
+.tab-indicator {
+  display: none;
 }
 
 .tabs__content {
@@ -433,6 +469,11 @@ main {
   padding: var(--space-3);
   transition: border-color var(--dur-ui) var(--ease-luxe),
     transform var(--dur-micro) var(--ease-luxe);
+  text-align: left;
+}
+
+.panel__card.expertise-btn {
+  cursor: pointer;
 }
 
 .panel__card--glow {
@@ -494,12 +535,31 @@ main {
     box-shadow var(--dur-ui) var(--ease-luxe);
 }
 
+.ebook-form {
+  margin-top: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+  max-width: 420px;
+}
+
+.ebook-form input {
+  padding: 12px 14px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: border-color var(--dur-ui) var(--ease-luxe),
+    box-shadow var(--dur-ui) var(--ease-luxe);
+}
+
 .contact textarea {
   resize: vertical;
 }
 
 .contact input:focus,
-.contact textarea:focus {
+.contact textarea:focus,
+.ebook-form input:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(184, 165, 154, 0.2);
@@ -514,6 +574,10 @@ main {
   flex-wrap: wrap;
   gap: var(--space-2);
   color: var(--text-muted);
+}
+
+.footer p {
+  color: var(--text);
 }
 
 .footer__links {
@@ -693,6 +757,21 @@ body.modal-open {
   .site-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .site-header,
+  main,
+  .footer {
+    padding-left: 0;
+  }
+
+  .tabs__nav {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .hero__stats {
