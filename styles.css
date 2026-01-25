@@ -94,6 +94,12 @@ main,
   letter-spacing: 0.08em;
 }
 
+.brand__mark--inline {
+  display: inline-grid;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
 .brand__name {
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
@@ -184,6 +190,10 @@ main {
   min-height: 320px;
 }
 
+.hero__visual-cta {
+  display: none;
+}
+
 .hero__copy h1 {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(2.6rem, 5vw, 4.6rem);
@@ -248,6 +258,7 @@ main {
   width: min(320px, 90%);
 }
 
+
 .card__title {
   text-transform: uppercase;
   font-size: 0.7rem;
@@ -291,6 +302,18 @@ main {
 
 .tabs {
   padding: 0;
+}
+
+.tabs__toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 8px 0;
+  cursor: pointer;
 }
 
 .tabs__nav {
@@ -371,6 +394,14 @@ main {
   position: relative;
   min-height: 300px;
   padding-top: var(--space-4);
+}
+
+.panel__mobile-title {
+  display: none;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-2);
 }
 
 .panel {
@@ -766,20 +797,112 @@ body.modal-open {
   }
 
   .tabs__nav {
-    top: 16px;
-    left: 16px;
-    right: 16px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: none;
+  }
+
+  .tabs__toggle {
+    display: none;
+  }
+
+  .tabs {
+    order: -1;
+  }
+
+  .hero {
+    padding-top: var(--space-2);
+  }
+
+  .hero__copy h1 {
+    margin-top: 0;
   }
 
   .hero__stats {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
+  .brand__mark--inline {
+    display: inline-grid;
+  }
+
+  .home__kicker {
+    display: none;
+  }
+
+  .hero__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .hero__visual-cta {
+    display: inline-block;
+    width: min(320px, 90%);
+    text-align: center;
+    margin-right: 32px;
+  }
+
+  .hero__visual .card {
+    position: relative;
+    margin-top: 8px;
+    margin-right: 32px;
+  }
+
   .tabs__content {
     min-height: 360px;
+  }
+
+  .tabs--stacked .tabs__content {
+    position: static;
+    height: auto;
+    min-height: 0;
+  }
+
+  .tabs--stacked .panel {
+    position: static;
+    opacity: 1;
+    transform: none;
+    filter: none;
+    pointer-events: auto;
+    margin-bottom: var(--space-4);
+  }
+
+  .tabs--stacked .panel > *,
+  .tabs--stacked .panel__grid > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .tabs--stacked .panel__mobile-title {
+    display: block;
+  }
+
+  .tabs--stacked #metabolic-recalibration,
+  .tabs--stacked #hormonal-balance,
+  .tabs--stacked #detoxification,
+  .tabs--stacked #fertility-support,
+  .tabs--stacked #healthy-aging,
+  .tabs--stacked #skin-healing,
+  .tabs--stacked #gut-reset,
+  .tabs--stacked #single-session,
+  .tabs--stacked #monthly,
+  .tabs--stacked #three-month,
+  .tabs--stacked #intake-diagnosis,
+  .tabs--stacked #private-programming,
+  .tabs--stacked #performance-adjustments {
+    display: none;
+  }
+
+  .tabs--collapsed .tabs__nav {
+    display: none;
+  }
+
+  .tabs--collapsed .tabs__toggle {
+    display: inline-block;
+    margin-top: 0;
+  }
+
+  .tabs--collapsed .tabs__content {
+    padding-top: 24px;
   }
 }
 

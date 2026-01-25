@@ -3,6 +3,12 @@ const panels = Array.from(document.querySelectorAll(".panel"));
 const tabsNav = document.querySelector(".tabs__nav");
 const tabsContent = document.querySelector(".tabs__content");
 const tabIndicator = document.querySelector(".tab-indicator");
+const tabsSection = document.querySelector(".tabs");
+const tabsToggle = document.getElementById("tabsToggle");
+const hero = document.querySelector(".hero");
+const homePanel = document.getElementById("home");
+const heroDesktopParent = hero ? hero.parentElement : null;
+const heroDesktopNext = hero ? hero.nextElementSibling : null;
 
 let activeTab = document.querySelector(".tab.active");
 let activePanel = document.querySelector(".panel.active");
@@ -17,7 +23,64 @@ const getTransitionDuration = (element) => {
 
 const setPanelHeight = (panel) => {
   if (!tabsContent || !panel) return;
+  if (tabsSection && tabsSection.classList.contains("tabs--stacked")) {
+    tabsContent.style.height = "auto";
+    return;
+  }
   tabsContent.style.height = `${panel.scrollHeight}px`;
+};
+
+const placeHeroForViewport = () => {
+  if (!hero || !homePanel || !heroDesktopParent) return;
+  const isMobile = window.matchMedia("(max-width: 720px)").matches;
+  if (isMobile) {
+    if (!homePanel.contains(hero)) {
+      homePanel.prepend(hero);
+    }
+    return;
+  }
+
+  if (hero.parentElement !== heroDesktopParent) {
+    if (heroDesktopNext && heroDesktopNext.parentElement === heroDesktopParent) {
+      heroDesktopParent.insertBefore(hero, heroDesktopNext);
+    } else {
+      heroDesktopParent.appendChild(hero);
+    }
+  }
+};
+
+const updateMobileTabsLayout = () => {
+  if (!tabsSection) return;
+  const isMobile = window.matchMedia("(max-width: 720px)").matches;
+  if (isMobile) {
+    tabsSection.classList.add("tabs--stacked");
+    tabs.forEach((tab) => {
+      const targetId = tab.dataset.tab;
+      const panel = document.getElementById(targetId);
+      if (!panel) return;
+      if (["home", "about", "services", "approach", "plans", "payment", "contact"].includes(targetId)) {
+        const existing = panel.querySelector(".panel__mobile-title");
+        if (existing) {
+          existing.remove();
+        }
+        return;
+      }
+      if (!panel.querySelector(".panel__mobile-title")) {
+        const heading = document.createElement("h2");
+        heading.className = "panel__mobile-title";
+        heading.textContent = tab.textContent.trim();
+        panel.prepend(heading);
+      }
+    });
+    if (tabsContent) {
+      tabsContent.style.height = "auto";
+    }
+  } else {
+    tabsSection.classList.remove("tabs--stacked");
+    document.querySelectorAll(".panel__mobile-title").forEach((title) => {
+      title.remove();
+    });
+  }
 };
 
 const updateIndicator = (tab) => {
@@ -77,15 +140,23 @@ if (activePanel) {
 if (activeTab) {
   updateIndicator(activeTab);
 }
+placeHeroForViewport();
 
 window.addEventListener("load", () => {
+  placeHeroForViewport();
+  updateMobileTabsLayout();
   setPanelHeight(activePanel);
   updateIndicator(activeTab);
 });
 
 window.addEventListener("resize", () => {
+  placeHeroForViewport();
+  updateMobileTabsLayout();
   setPanelHeight(activePanel);
   updateIndicator(activeTab);
+  if (tabsSection && !window.matchMedia("(max-width: 720px)").matches) {
+    tabsSection.classList.remove("tabs--collapsed");
+  }
 });
 
 tabs.forEach((tab) => {
@@ -93,14 +164,23 @@ tabs.forEach((tab) => {
     switchTab(tab);
     if (tab.dataset.tab === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (tab.dataset.tab === "about") {
-      const aboutSection = document.querySelector(".tabs");
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+    } else if (tabsSection) {
+      tabsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    const isMobile = window.matchMedia("(max-width: 720px)").matches;
+    if (isMobile && tabsSection && tab.dataset.tab !== "home") {
+      tabsSection.classList.add("tabs--collapsed");
     }
   });
 });
+
+if (tabsToggle && tabsSection) {
+  tabsToggle.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    tabsSection.classList.remove("tabs--collapsed");
+  });
+}
 
 // Modal functionality
 const modal = document.getElementById("contactModal");
@@ -178,6 +258,7 @@ const handleModalKeydown = (event) => {
 const ctaButtons = [
   document.getElementById("headerCTA"),
   document.getElementById("heroCTA"),
+  document.getElementById("heroVisualCTA"),
   document.getElementById("tabCTA"),
 ];
 

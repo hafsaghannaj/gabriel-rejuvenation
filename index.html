@@ -65,6 +65,7 @@
           <p class="hero__eyebrow">Quiet power. Precise fuel.</p>
           <h1>
             A private nutrition studio with a dark, focused edge.
+            <span class="brand__mark brand__mark--inline">GR</span>
           </h1>
           <p class="hero__subhead">
             For clients who want discipline without noise. We build plans that
@@ -90,6 +91,7 @@
           </div>
         </div>
         <div class="hero__visual">
+          <button class="cta cta--light hero__visual-cta" id="heroVisualCTA">Book a Session</button>
           <div class="card">
             <p class="card__title">Current Focus</p>
             <h3>Blood-sugar control</h3>
@@ -109,16 +111,17 @@
         <div class="tabs__nav" role="tablist">
           <button class="tab active" data-tab="home" role="tab" aria-selected="true" aria-controls="home">Home</button>
           <button class="tab" data-tab="services" role="tab" aria-selected="false" aria-controls="services">Private Counseling</button>
-          <button class="tab" data-tab="about" role="tab" aria-selected="false" aria-controls="about">About Me</button>
+          <button class="tab" data-tab="about" role="tab" aria-selected="false" aria-controls="about">About Gabriel</button>
           <button class="tab" data-tab="approach" role="tab" aria-selected="false" aria-controls="approach">Approach</button>
           <button class="tab" data-tab="plans" role="tab" aria-selected="false" aria-controls="plans">E-Books</button>
           <button class="tab" data-tab="payment" role="tab" aria-selected="false" aria-controls="payment">Payment Options</button>
           <button class="tab" data-tab="contact" role="tab" aria-selected="false" aria-controls="contact">Contact</button>
           <span class="tab-indicator" aria-hidden="true"></span>
         </div>
+        <button class="tabs__toggle" id="tabsToggle" type="button">Show tabs</button>
         <div class="tabs__content">
           <article class="panel active" id="home" role="tabpanel" aria-hidden="false">
-            <h2>Minimal input. Maximum outcome.</h2>
+            <h2 class="home__kicker">Minimal input. Maximum outcome.</h2>
             <p>
               Gabriel Rejuvenation delivers focused nutrition strategy for
               clients who want their food to work harder. The plan is clean,
@@ -320,10 +323,6 @@
 
           <article class="panel" id="three-month" role="tabpanel" aria-hidden="true">
             <h2>3-Month Intensive</h2>
-          </article>
-
-          <article class="panel" id="approach" role="tabpanel" aria-hidden="true">
-            <h2>My Approach</h2>
           </article>
 
           <article class="panel" id="intake-diagnosis" role="tabpanel" aria-hidden="true">
