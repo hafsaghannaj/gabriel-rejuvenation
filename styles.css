@@ -316,6 +316,12 @@ main {
   cursor: pointer;
 }
 
+@media (min-width: 721px) {
+  .tabs__toggle {
+    display: none !important;
+  }
+}
+
 .tabs__nav {
   position: relative;
   display: flex;
