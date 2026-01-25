@@ -841,10 +841,7 @@ body.modal-open {
   }
 
   .hero__visual-cta {
-    display: inline-block;
-    width: min(320px, 90%);
-    text-align: center;
-    margin-right: 32px;
+    display: none;
   }
 
   .hero__visual .card {
