@@ -1,3 +1,18 @@
+// ── EmailJS Setup ──
+// Replace these with your actual EmailJS credentials:
+// 1. Sign up at https://www.emailjs.com
+// 2. Add an email service (e.g. Gmail) → copy the Service ID
+// 3. Create two email templates → copy their Template IDs
+// 4. Go to Account → copy your Public Key
+const EMAILJS_PUBLIC_KEY = "6KBIn5alW6fTjL-Hw";
+const EMAILJS_SERVICE_ID = "service_y2n9wgk";
+const EMAILJS_CONTACT_TEMPLATE_ID = "template_3mphrr4";
+const EMAILJS_EBOOK_TEMPLATE_ID = "template_nnuzy4j";
+
+if (typeof emailjs !== "undefined") {
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+}
+
 const tabs = Array.from(document.querySelectorAll(".tab"));
 const panels = Array.from(document.querySelectorAll(".panel"));
 const tabsNav = document.querySelector(".tabs__nav");
@@ -285,6 +300,7 @@ if (contactForm) {
 
     const name = document.getElementById("nameInput").value.trim();
     const email = document.getElementById("emailInput").value.trim();
+    const phone = document.getElementById("phoneInput").value.trim();
     const goals = document.getElementById("goalsInput").value.trim();
 
     if (!name || !email || !goals) {
@@ -298,15 +314,35 @@ if (contactForm) {
       return;
     }
 
-    console.log("Form submitted:", { name, email, goals });
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
 
-    closeModal();
-    if (successMessage) {
-      successMessage.classList.add("show");
-      setTimeout(() => {
-        successMessage.classList.remove("show");
-      }, 4000);
-    }
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_CONTACT_TEMPLATE_ID, {
+        from_name: name,
+        from_email: email,
+        phone: phone,
+        goals: goals,
+      })
+      .then(() => {
+        closeModal();
+        if (successMessage) {
+          successMessage.classList.add("show");
+          setTimeout(() => {
+            successMessage.classList.remove("show");
+          }, 4000);
+        }
+      })
+      .catch((err) => {
+        console.error("EmailJS error:", err);
+        alert("Something went wrong. Please try again or email us directly.");
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
   });
 }
 
@@ -462,15 +498,34 @@ if (ebookForm) {
       return;
     }
 
-    console.log("E-book purchased:", { name, email, ebook: selected });
+    const submitBtn = ebookForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
 
-    closeEbookModal();
-    if (successMessage) {
-      successMessage.classList.add("show");
-      setTimeout(() => {
-        successMessage.classList.remove("show");
-      }, 4000);
-    }
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_EBOOK_TEMPLATE_ID, {
+        from_name: name,
+        from_email: email,
+        ebook_name: selected,
+      })
+      .then(() => {
+        closeEbookModal();
+        if (successMessage) {
+          successMessage.classList.add("show");
+          setTimeout(() => {
+            successMessage.classList.remove("show");
+          }, 4000);
+        }
+      })
+      .catch((err) => {
+        console.error("EmailJS error:", err);
+        alert("Something went wrong. Please try again or email us directly.");
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
   });
 }
 
